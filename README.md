@@ -1,59 +1,9 @@
 # TexasInstruments.Plugins.DuplicatePublications
 Plugin developed to Duplicate a publication along with its objects.
-1.	Adding button to ribbon bar
-Paste below code in file “FolderButtionbar.xml” which will be in location “C:\InfoShare\Web\Author\ASP\XSL”
+1.	Adding button to ribbon bar: 
+	Paste below code in file “FolderButtionbar.xml” which will be in location “C:\InfoShare\Web\Author\ASP\XSL”
 
-	<BUTTON CHECKACCESS="Y">
-    	<!-- Duplicate Publications -->
-    	<CARDTYPE>VDOCTYPEPUBLICATION</CARDTYPE>
-    	<INPUT type="button" NAME="Duplicate Publication" onClick="DuplicatePublication()" VALUE="Duplicate Publication" class="button" ICON="UIFramework/export.32x32.png" SHOWTEXT="Y"/>
-    <SCRIPT language="JAVASCRIPT">
-      <![CDATA[
-        function DuplicatePublication()
-        {
-		  var iPos;
-          var FolderName;
-          var FolderId;
-          var FolderPath;
-          var FolderUsergroup;
-          var FolderType;
-          var SelectedCards = parent.DataFrame.aDragLogicalArray;
-          var SelectedCard;
-
-          SelectedCard ='';
-		  
-		  FolderId = parent.DataFrame.document.FolderContentData.FOLDER.value;
-          FolderName = parent.DataFrame.document.FolderContentData.CurrentFolderName.value;
-          FolderPath=parent.DataFrame.document.FolderContentData.PathNames.value;
-          IPos=FolderPath.lastIndexOf("|");
-          if (IPos>0) FolderPath=FolderPath.substring(IPos+1);
-		  
-		  FolderUsergroup = parent.DataFrame.document.FolderContentData.FolderUsrGrp.value;
-          FolderType =  'VDOCTYPENONE'; 
-		  
-		  for( i = 0, j=0, lArray=parent.DataFrame.aDragLogicalArray; i < parent.DataFrame.aDragLogicalArray.length ; i++)
-          {
-            if (lArray[i] != undefined)
-            {
-              IPos = lArray[i].lastIndexOf("|");
-              if (IPos > 0) SelectedCard= lArray[i].substring(IPos+1)
-            }
-          }
-
-          var WindowStr = "dependent=yes,toolbar=no,width=450,height=250,resizable=yes,scrollbars=auto,menubar=no,status=yes";
-		  
-		  if (SelectedCard.length==0)
-          {
-            alert("Please select an object");
-          }
-		  else
-          {            
-			FolderAssistForObjects('Duplicate Publications', FolderId, FolderName, FolderUsergroup, FolderType, FolderPath, 'PerformDuplicatePublication()', '');
-          }
-        }
-    ]]>
-    </SCRIPT>
-  </BUTTON>
+	
  
 2.	JavaScript function to call new ASP file
 
