@@ -1,13 +1,10 @@
 # TexasInstruments.Plugins.DuplicatePublications
 Plugin developed to Duplicate a publication along with its objects.
 1.	Adding button to ribbon bar: 
-	Paste below code in file “FolderButtionbar.xml” which will be in location “C:\InfoShare\Web\Author\ASP\XSL”
-
-	
+	Edit file “FolderButtionbar.xml” which will be in location “C:\InfoShare\Web\Author\ASP\XSL”	
  
 2.	JavaScript function to call new ASP file
-
-Add below code in file “FolderButton.js” which will be in location “C:\InfoShare\Web\Author\ASP\FolderAssist”
+        Add below code in file “FolderButton.js” which will be in location “C:\InfoShare\Web\Author\ASP\FolderAssist”
 
 function PerformDuplicatePublication()
 {
