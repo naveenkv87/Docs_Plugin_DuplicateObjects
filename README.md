@@ -3,10 +3,10 @@ Plugin developed to Duplicate a publication along with its objects.
 1.	Adding button to ribbon bar
 Paste below code in file “FolderButtionbar.xml” which will be in location “C:\InfoShare\Web\Author\ASP\XSL”
 
-<BUTTON CHECKACCESS="Y">
-    <!-- Duplicate Publications -->
-    <CARDTYPE>VDOCTYPEPUBLICATION</CARDTYPE>
-    <INPUT type="button" NAME="Duplicate Publication" onClick="DuplicatePublication()" VALUE="Duplicate Publication" class="button" ICON="UIFramework/export.32x32.png" SHOWTEXT="Y"/>
+	<BUTTON CHECKACCESS="Y">
+    	<!-- Duplicate Publications -->
+    	<CARDTYPE>VDOCTYPEPUBLICATION</CARDTYPE>
+    	<INPUT type="button" NAME="Duplicate Publication" onClick="DuplicatePublication()" VALUE="Duplicate Publication" class="button" ICON="UIFramework/export.32x32.png" SHOWTEXT="Y"/>
     <SCRIPT language="JAVASCRIPT">
       <![CDATA[
         function DuplicatePublication()
