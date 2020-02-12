@@ -168,25 +168,28 @@ namespace TI_ClonePublication
 
                     XmlDocument _sourcePubBaselineObjXML = new XmlDocument();
                     _sourcePubBaselineObjXML.LoadXml(_baseLineResponse);
-                    SourceObjects = GetAllBaslineObjects(_sourcePubBaselineObjXML);
+                    SourceObjects = GetAllBaslineObjects(_sourcePubBaselineObjXML, docObj);
 
                     foreach (Models.IshObjectDetails _objRef in SourceObjects)
                     {
                         _eventMonitor.AddEventDetail(_progressId, EventLevel.Information, "Creating Duplicate of Object", _objRef.ObjSourceLogId, DetailStatus.Success);
-                        string _sourceObj = GetObjectDetails(_objRef.ObjSourceLogId, _objRef.ObjVersion, docObj);
-                        XmlDocument _sourceObjXML = new XmlDocument();
-                        _sourceObjXML.LoadXml(_sourceObj);
+                        //string _sourceObj = GetObjectDetails(_objRef.ObjSourceLogId, _objRef.ObjVersion, docObj);
+                        //XmlDocument _sourceObjXML = new XmlDocument();
+                        //_sourceObjXML.LoadXml(_sourceObj);
 
-                        XmlNode _objTypeIshObject = _sourceObjXML.SelectNodes("//ishobject")[0];
-                        string _ObjIshRef = _objTypeIshObject.Attributes["ishref"].Value;
-                        string _objType = _objTypeIshObject.Attributes["ishtype"].Value;
-                        _objRef.ObjType = _objType;
+                        //XmlNode _objTypeIshObject = _sourceObjXML.SelectNodes("//ishobject")[0];
+                        //string _ObjIshRef = _objTypeIshObject.Attributes["ishref"].Value;
+                        //string _objType = _objTypeIshObject.Attributes["ishtype"].Value;
+                        //_objRef.ObjType = _objType;
+
+                        string _ObjIshRef = _objRef.ObjSourceLogId;
+                        string _objType = _objRef.ObjType;
 
                         if (_objType != "ISHLibrary")
                         {
                             string _folderRef = CheckAndCreateFolder(_newFolderId, _objType);
-                            string _objData = _sourceObjXML.SelectNodes("//ishdata")[0].InnerText;
-                            string _objDataEDT = _sourceObjXML.SelectNodes("//ishdata")[0].Attributes["edt"].Value;
+                            string _objData = _objRef.ObjData;
+                            string _objDataEDT = _objRef.ObjDataEdt;
 
                             //Get and process data
                             byte[] _updatedDataByte;
@@ -240,6 +243,7 @@ namespace TI_ClonePublication
                         else
                         {
                             _eventMonitor.AddEventDetail(_progressId, EventLevel.Information, "Creating Duplicate of Object is skipped because it is Library object", _objRef.ObjSourceLogId, DetailStatus.Success);
+                            _objRef.ObjNewLogId = _objRef.ObjSourceLogId;
                         }
                     }
 
@@ -254,12 +258,7 @@ namespace TI_ClonePublication
 
                     string _folderlocation = CheckAndCreateFolder(_newFolderId, "ISHPublication");
                     string newPubGUID = "GUID-" + System.Guid.NewGuid().ToString().ToUpper();
-                    string _defaultPubversion = "1";
-                    //foreach (XmlNode _sourceOutputFormats in pubOutPutFormat)
-                    //{
-                    //    string _defaultPubversion = "1";
-                    //    pubObj.Create(long.Parse(_folderlocation), ref newPubGUID, ref _defaultPubversion, _sourceOutputFormats.InnerText, pubLangComb, newPubMeta);
-                    //}
+                    string _defaultPubversion = "1";                   
 
                     foreach (XmlNode _sourceOutputFormats in _publicationDetails.SelectNodes("//ishobject"))
                     {
@@ -268,8 +267,6 @@ namespace TI_ClonePublication
 
                         if (_currentObjDetails.SelectNodes("//ishfield[@name='FISHPUBLNGCOMBINATION']")[0].InnerText == pubWorkingLang)
                         {
-                            //createRequest.outputFormat = _currentObjDetails.SelectNodes("//ishfield[@name='FISHOUTPUTFORMATREF']")[0].InnerText;
-                            //PublicationOutput25ServiceReference.CreateResponse pubResponse = new PublicationOutput25ServiceReference.CreateResponse();
                             string requiredOutFormat = _currentObjDetails.SelectNodes("//ishfield[@name='FISHOUTPUTFORMATREF']")[0].InnerText;
                             pubObj.Create(long.Parse(_folderlocation), ref newPubGUID, ref _defaultPubversion, requiredOutFormat, pubLangComb, newPubMeta);
                         }
@@ -326,7 +323,7 @@ namespace TI_ClonePublication
             return _latestPubVersionRef;
         }
 
-        private List<Models.IshObjectDetails> GetAllBaslineObjects(XmlDocument objXML)
+        private List<Models.IshObjectDetails> GetAllBaslineObjects(XmlDocument objXML, Trisoft.InfoShare.API25.DocumentObj documentObj25)
         {
             List<Models.IshObjectDetails> objList = new List<Models.IshObjectDetails>();
             XmlNodeList _baseObjNodes = objXML.SelectNodes("//object");
@@ -334,13 +331,37 @@ namespace TI_ClonePublication
             {
                 string _objRef = baseObj.Attributes["ref"].Value;
                 string _objVar = baseObj.Attributes["versionnumber"].Value;
-                string newGUID = "GUID-" + System.Guid.NewGuid().ToString().ToUpper();
+
+                string _sourceObj = GetObjectDetails(_objRef, _objVar, documentObj25);
+                XmlDocument _sourceObjXML = new XmlDocument();
+                _sourceObjXML.LoadXml(_sourceObj);
+
+                XmlNode _objTypeIshObject = _sourceObjXML.SelectNodes("//ishobject")[0];
+                string _ObjIshRef = _objTypeIshObject.Attributes["ishref"].Value;
+                string _objType = _objTypeIshObject.Attributes["ishtype"].Value;
+
+                string _objData = _sourceObjXML.SelectNodes("//ishdata")[0].InnerText;
+                string _objDataEDT = _sourceObjXML.SelectNodes("//ishdata")[0].Attributes["edt"].Value;
+
+                string newGUID = string.Empty;
+                if (_objType != "ISHLibrary")
+                {
+                    newGUID = "GUID-" + System.Guid.NewGuid().ToString().ToUpper();
+                }
+                else
+                {
+                    newGUID = _ObjIshRef;
+                }
+
                 objectGUIDMaps.Add(_objRef, newGUID);
                 Models.IshObjectDetails _objDet = new Models.IshObjectDetails
                 {
                     ObjSourceLogId = _objRef,
                     ObjVersion = _objVar,
-                    ObjNewLogId = newGUID
+                    ObjNewLogId = newGUID,
+                    ObjType = _objType,
+                    ObjData = _objData,
+                    ObjDataEdt = _objDataEDT
                 };
                 if (!objList.Contains(_objDet))
                 {

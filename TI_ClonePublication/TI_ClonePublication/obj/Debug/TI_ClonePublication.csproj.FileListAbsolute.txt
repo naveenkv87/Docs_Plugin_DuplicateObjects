@@ -9,3 +9,14 @@ C:\Projects\Docs\Texas Instrument\New folder\TI_ClonePublication\TI_ClonePublica
 C:\Projects\Docs\Texas Instrument\New folder\TI_ClonePublication\TI_ClonePublication\bin\Debug\Trisoft.InfoShare.API.Enumerations.dll
 C:\Projects\Docs\Texas Instrument\New folder\TI_ClonePublication\TI_ClonePublication\bin\Debug\Trisoft.InfoShare.API.Factories.dll
 C:\Projects\Docs\Texas Instrument\New folder\TI_ClonePublication\TI_ClonePublication\bin\Debug\Trisoft.InfoShare.API.Interfaces.dll
+C:\Projects\Docs\Texas Instrument\Docs.Plugin.DuplicatePublication\TI_ClonePublication\TI_ClonePublication\bin\Debug\TI_ClonePublication.dll
+C:\Projects\Docs\Texas Instrument\Docs.Plugin.DuplicatePublication\TI_ClonePublication\TI_ClonePublication\bin\Debug\TI_ClonePublication.pdb
+C:\Projects\Docs\Texas Instrument\Docs.Plugin.DuplicatePublication\TI_ClonePublication\TI_ClonePublication\bin\Debug\Trisoft.InfoShare.API.Enumerations.dll
+C:\Projects\Docs\Texas Instrument\Docs.Plugin.DuplicatePublication\TI_ClonePublication\TI_ClonePublication\bin\Debug\Trisoft.InfoShare.API.Factories.dll
+C:\Projects\Docs\Texas Instrument\Docs.Plugin.DuplicatePublication\TI_ClonePublication\TI_ClonePublication\bin\Debug\Trisoft.InfoShare.API.Interfaces.dll
+C:\Projects\Docs\Texas Instrument\Docs.Plugin.DuplicatePublication\TI_ClonePublication\TI_ClonePublication\bin\Debug\Trisoft.InfoShare.Plugins.SDK.dll
+C:\Projects\Docs\Texas Instrument\Docs.Plugin.DuplicatePublication\TI_ClonePublication\TI_ClonePublication\obj\Debug\TI_ClonePublication.csprojAssemblyReference.cache
+C:\Projects\Docs\Texas Instrument\Docs.Plugin.DuplicatePublication\TI_ClonePublication\TI_ClonePublication\obj\Debug\TI_ClonePublication.csproj.CoreCompileInputs.cache
+C:\Projects\Docs\Texas Instrument\Docs.Plugin.DuplicatePublication\TI_ClonePublication\TI_ClonePublication\obj\Debug\TI_ClonePublication.csproj.CopyComplete
+C:\Projects\Docs\Texas Instrument\Docs.Plugin.DuplicatePublication\TI_ClonePublication\TI_ClonePublication\obj\Debug\TI_ClonePublication.dll
+C:\Projects\Docs\Texas Instrument\Docs.Plugin.DuplicatePublication\TI_ClonePublication\TI_ClonePublication\obj\Debug\TI_ClonePublication.pdb

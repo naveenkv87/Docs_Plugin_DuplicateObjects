@@ -12,5 +12,7 @@ namespace TI_ClonePublication.Models
         public string ObjVersion { get; set; }
         public string ObjNewLogId { get; set; }
         public string ObjType { get; set; }
+        public string ObjData { get; set; }
+        public string ObjDataEdt { get; set; }
     }
 }
